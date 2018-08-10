@@ -23,6 +23,8 @@
         body {
             padding-bottom: 100px;
         }
+        .level { display: flex; align-items: center}
+        .flex { flex: 1}
     </style>
 </head>
 <body>
@@ -53,6 +55,9 @@
                                     </a>
                                 </li>
                             @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="/threads?popular=1">Popular Threads</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="/threads">All Threads</a></li>
