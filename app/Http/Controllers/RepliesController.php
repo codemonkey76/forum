@@ -37,4 +37,14 @@ class RepliesController extends Controller
 
         return back();
     }
+
+    /**
+     * @param Reply $reply
+     */
+    public function update(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+
+        $reply->update(request(['body']));
+    }
 }
