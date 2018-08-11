@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reply;
 use App\Thread;
 
 class RepliesController extends Controller
@@ -16,10 +17,24 @@ class RepliesController extends Controller
         $this->validate(request(), ['body' => 'required']);
 
         $thread->addReply([
-            'body' => request('body'),
-            'user_id' => auth()->id()
+            'body'    => request('body'),
+            'user_id' => auth()->id(),
         ]);
 
         return back()->with('flash', 'Your reply has been left.');
+    }
+
+    /**
+     * @param Reply $reply
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Exception
+     */
+    public function destroy(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+
+        $reply->delete();
+
+        return back();
     }
 }

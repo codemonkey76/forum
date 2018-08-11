@@ -2,16 +2,16 @@
 
 namespace App\Policies;
 
+use App\Reply;
 use App\User;
-use App\Thread;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ThreadPolicy
+class ReplyPolicy
 {
     use HandlesAuthorization;
 
-    public function update(User $user, Thread $thread)
+    public function update(User $user, Reply $reply)
     {
-        return $thread->user_id == $user->id;
+        return $reply->user_id == $user->id;
     }
 }
