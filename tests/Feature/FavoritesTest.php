@@ -23,7 +23,7 @@ class FavoritesTest extends TestCase
         $this->signIn();
         $reply = create('App\Reply');
 
-        $this->post('replies/' . $reply->id . '/favorites');
+        $reply->favorite();
 
         $this->assertCount(1, $reply->favorites);
     }
@@ -45,4 +45,15 @@ class FavoritesTest extends TestCase
         $this->assertCount(1, $reply->favorites);
     }
 
+    /** @test */
+    function an_authenticated_user_can_unfavorite_any_reply()
+    {
+        $this->signIn();
+
+        $reply = create('App\Reply');
+
+        $reply->favorite();
+        $reply->unfavorite();
+        $this->assertCount(0, $reply->favorites);
+    }
 }
