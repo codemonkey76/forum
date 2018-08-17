@@ -64342,9 +64342,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         refresh: function refresh(_ref) {
             var data = _ref.data;
 
-            console.log(data);
             this.dataSet = data;
             this.items = data.data;
+
+            window.scrollTo(0, 0);
         }
     }
 });

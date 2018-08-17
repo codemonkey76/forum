@@ -34,8 +34,8 @@
                     .then(this.refresh);
             },
 
-            url(page ) {
-                if (! page) {
+            url(page) {
+                if (!page) {
                     let query = location.search.match(/page=(\d+)/);
 
                     page = query ? query[1] : 1;
@@ -44,9 +44,10 @@
             },
 
             refresh({data}) {
-                console.log(data);
                 this.dataSet = data;
                 this.items = data.data;
+
+                window.scrollTo(0, 0);
             }
         }
     }
