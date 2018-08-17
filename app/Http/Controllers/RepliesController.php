@@ -9,7 +9,12 @@ class RepliesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index');
+    }
+
+    public function index($channelId, Thread $thread)
+    {
+        return $thread->replies()->paginate(20);
     }
 
     public function store($channel_id, Thread $thread)
@@ -47,6 +52,7 @@ class RepliesController extends Controller
 
     /**
      * @param Reply $reply
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Reply $reply)
     {

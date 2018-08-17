@@ -4,7 +4,7 @@
             <div class="level">
                 <h5 class="flex">
                     <a :href="'/profile/'+data.owner.name" v-text="data.owner.name"></a>
-                    said {{ data.created_at }}...
+                    said <span v-text="ago"></span>...
                 </h5>
 
                 <div>
@@ -32,6 +32,7 @@
 
 <script>
     import Favorite from './Favorite';
+    import moment from 'moment';
 
     export default {
         props: ['data'],
@@ -51,6 +52,9 @@
             },
             canUpdate() {
                 return this.authorize(user => this.data.user_id == user.id);
+            },
+            ago() {
+                return moment(this.data.created_at+"Z").fromNow();
             },
         },
 

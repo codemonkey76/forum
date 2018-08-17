@@ -79,17 +79,14 @@ class ThreadsController extends Controller
      */
     public function show($channel, Thread $thread)
     {
-        return view('threads.show', [
-            'thread'  => $thread,
-            'replies' => $thread->replies()->paginate(25),
-        ]);
+        return view('threads.show', compact('thread'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function edit(Thread $thread)
     {
@@ -101,7 +98,7 @@ class ThreadsController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function update(Request $request, Thread $thread)
     {
@@ -111,8 +108,10 @@ class ThreadsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param $channel
      * @param  \App\Thread $thread
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
 
     public function destroy($channel, Thread $thread)

@@ -21,8 +21,10 @@ window.flash = function(message) {
     window.events.$emit('flash', message);
 };
 
+// Set up global Vue components
 Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('thread-view', require('./pages/Thread.vue'));
+Vue.component('paginator', require('./components/Paginator'));
 
 const app = new Vue({
     el: '#app'
