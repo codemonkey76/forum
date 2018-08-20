@@ -54,7 +54,7 @@
                 return this.authorize(user => this.data.user_id == user.id);
             },
             ago() {
-                return moment(this.data.created_at+"Z").fromNow();
+                return moment(this.data.created_at + "Z").fromNow();
             },
         },
 
@@ -62,7 +62,10 @@
             update() {
                 axios.patch('/replies/' + this.data.id, {
                     body: this.body
-                });
+                })
+                    .catch(error => {
+                        flash(error.response.data, 'danger');
+                    });
 
                 this.editing = false;
 
