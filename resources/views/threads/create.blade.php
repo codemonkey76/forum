@@ -21,13 +21,25 @@
                             </div>
                             <div class="form-group">
                                 <label for="title">Title:</label>
-                                <input type="text" class="form-control" name="title" id="title"
-                                       value="{{ old('title') }}" required>
+
+                                <input type="text"
+                                       name="title"
+                                       id="title"
+                                       value="{{ old('title') }}"
+                                       class="form-control {{ $errors->any()?$errors->has('title')?'is-invalid':'is-valid':'' }}"
+                                       required>
+                                <div class="invalid-feedback">{{ $errors->first('title') }}</div>
+                                <div class="valid-feedback">Title is good.</div>
                             </div>
                             <div class="form-group">
                                 <label for="body">Body:</label>
-                                <textarea class="form-control" id="body" name="body"
-                                          rows="8" required>{{ old('body') }}</textarea>
+                                <textarea class="form-control {{ $errors->any()?$errors->has('body')?'is-invalid':'is-valid':'' }}"
+                                          id="body"
+                                          name="body"
+                                          rows="8"
+                                          required>{{ old('body') }}</textarea>
+                                <div class="invalid-feedback">{{ $errors->first('body') }}</div>
+                                <div class="valid-feedback">Body is good.</div>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Publish</button>

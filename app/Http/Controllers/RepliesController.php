@@ -27,8 +27,7 @@ class RepliesController extends Controller
     public function store($channel_id, Thread $thread)
     {
         try {
-
-            $this->validateReply();
+            request()->validate(['body' => 'required|spamfree']);
 
             $reply = $thread->addReply([
                 'body'    => request('body'),
@@ -64,18 +63,11 @@ class RepliesController extends Controller
         $this->authorize('update', $reply);
 
         try {
-            $this->validateReply();
+            request()->validate(['body' => 'required|spamfree']);
 
             $reply->update(request(['body']));
         } catch (Exception $e) {
             return response('Sorry, your reply could not be saved at this time.', 422);
         }
-    }
-
-
-    protected function validateReply()
-    {
-        $this->validate(request(), ['body' => 'required']);
-        resolve(Spam::class)->detect(request('body'));
     }
 }
