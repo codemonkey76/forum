@@ -48,4 +48,8 @@ class User extends Authenticatable
     {
         cache()->forever($this->visitedThreadCacheKey($thread), Carbon::now());
     }
+    public function lastReply()
+    {
+        return $this->hasOne('App\Reply')->latest();
+    }
 }
