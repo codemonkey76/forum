@@ -2,7 +2,9 @@
 
 namespace App\Http\Forms;
 
+use App\Notifications\YouWereMentioned;
 use App\Reply;
+use App\User;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
@@ -39,9 +41,19 @@ class CreatePostForm extends FormRequest
 
     public function persist($thread)
     {
-        return $thread->addReply([
+        $reply =  $thread->addReply([
             'body'    => request('body'),
             'user_id' => auth()->id(),
-        ])->load('owner');
+        ]);
+
+        preg_match_all('/\@([^\s\.]+)/',$reply->body, $matches);
+
+        foreach ($matches[1] as $name)
+        {
+            $user = User::whereName($name)->first();
+            if ($user) $user->notify(new YouWereMentioned($reply));
+        }
+
+        return $reply->load('owner');
     }
 }
