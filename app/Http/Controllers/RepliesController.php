@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Inspections\Spam;
+use App\Http\Forms\CreatePostForm;
 use App\Reply;
 use App\Thread;
 use Exception;
-use Gate;
 
 class RepliesController extends Controller
 {
@@ -23,29 +22,12 @@ class RepliesController extends Controller
     /**
      * @param $channel_id
      * @param Thread $thread
+     * @param CreatePostForm $form
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Http\RedirectResponse
      */
-    public function store($channel_id, Thread $thread)
+    public function store($channel_id, Thread $thread, CreatePostForm $form)
     {
-//        try {
-
-        if (Gate::denies('create', new Reply)) {
-            return response('You are posting too frequently. Please take a break :)', 429);
-        }
-
-        $this->authorize('create', new Reply);
-
-        request()->validate(['body' => 'required|spamfree']);
-
-        $reply = $thread->addReply([
-            'body'    => request('body'),
-            'user_id' => auth()->id(),
-        ]);
-//        } catch (Exception $e) {
-//            return response('Sorry, your reply could not be saved at this time.', 422);
-//        }
-
-        return $reply->load('owner');
+        return $form->persist($thread);
     }
 
     /**
