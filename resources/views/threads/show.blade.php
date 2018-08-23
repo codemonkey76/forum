@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('header')
+    <link href="{{ asset('css/vendor/jquery.atwho.css') }}" rel="stylesheet">
+@endsection
 @section('content')
     <thread-view initial-replies-count="{{ $thread->replies_count }}" inline-template>
         <div class="container">
@@ -37,10 +39,13 @@
                         <div class="card-body">
                             <p>This thread was published {{ $thread->created_at->diffForHumans() }}
                                 by <a href="#">{{ $thread->creator->name }}</a> and currently
-                                has <span v-text="repliesCount"></span> {{ str_plural('comment', $thread->replies_count) }}.
+                                has <span
+                                        v-text="repliesCount"></span> {{ str_plural('comment', $thread->replies_count) }}
+                                .
                             </p>
                             <p>
-                                <subscribe-button :active="{{ json_encode($thread->isSubscribedTo) }}"></subscribe-button>
+                                <subscribe-button
+                                        :active="{{ json_encode($thread->isSubscribedTo) }}"></subscribe-button>
 
                             </p>
                         </div>

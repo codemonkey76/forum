@@ -19,12 +19,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <script>
         window.App = {!! json_encode([
             'signedIn' => Auth::check(),
             'user' => Auth::user(),
         ]) !!};
     </script>
+    @yield('header')
 </head>
 <body>
 <div id="app">
@@ -35,5 +37,6 @@
         <flash message="{{ session('flash') }}"></flash>
     </main>
 </div>
+@yield('scripts')
 </body>
 </html>
