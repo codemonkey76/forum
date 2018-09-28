@@ -24,6 +24,7 @@ class ThreadsController extends Controller
      *
      * @param Channel $channel
      * @param ThreadFilters $filters
+     * @param Trending $trending
      * @return \Illuminate\Http\Response
      */
     public function index(Channel $channel, ThreadFilters $filters, Trending $trending)
@@ -34,10 +35,10 @@ class ThreadsController extends Controller
             return $threads;
         }
 
-        return view('threads.index', compact([
-            'threads' => $threads,
-            'trending' => $trending->get()
-        ]));
+        return view('threads.index', [
+            'threads'=>$threads,
+            'trending'=>$trending->get()
+        ]);
     }
 
     /**
@@ -79,7 +80,9 @@ class ThreadsController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param $channel
      * @param  \App\Thread $thread
+     * @param Trending $trending
      * @return \Illuminate\Http\Response
      */
     public function show($channel, Thread $thread, Trending $trending)
@@ -89,7 +92,7 @@ class ThreadsController extends Controller
         }
 
         $trending->push($thread);
-        $thread->visits()->record();
+        $thread->increment('visits');
 
         return view('threads.show', compact('thread'));
     }

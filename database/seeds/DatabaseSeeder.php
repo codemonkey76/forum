@@ -11,6 +11,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        factory('App\Thread', 30)->create();
+        App\Thread::all()->each(function($t) {
+            for ($i=0;$i<20;$i++)
+            {
+                $user = App\User::inRandomOrder()->first();
+                factory('App\Reply')->create(['user_id' => $user->id, 'thread_id' => $t->id]);
+            }
+        });
     }
 }
