@@ -135,6 +135,15 @@ class Thread extends Model
         $this->attributes['slug'] = $slug;
     }
 
+    public function lock()
+    {
+        $this->update(['locked'=>true]);
+    }
+    public function unlock()
+    {
+        $this->update(['locked'=>false]);
+    }
+
     public function markBestReply(Reply $reply)
     {
         $this->update(['best_reply_id'=>$reply->id]);
