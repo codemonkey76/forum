@@ -36,8 +36,8 @@ class ThreadsController extends Controller
         }
 
         return view('threads.index', [
-            'threads'=>$threads,
-            'trending'=>$trending->get()
+            'threads'  => $threads,
+            'trending' => $trending->get(),
         ]);
     }
 
@@ -70,6 +70,7 @@ class ThreadsController extends Controller
             'channel_id' => request('channel_id'),
             'title'      => request('title'),
             'body'       => request('body'),
+            'slug'       => str_slug(request('title')),
         ]);
 
 
