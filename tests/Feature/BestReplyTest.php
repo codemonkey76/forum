@@ -48,7 +48,7 @@ class BestReplyTest extends TestCase
         $reply = create('App\Reply', ['user_id' => auth()->id()]);
 
         $reply->thread->markBestReply($reply);
-        
+
         $this->deleteJson(route('replies.destroy',$reply));
         $this->assertNull($reply->thread->fresh()->best_reply_id);
     }
