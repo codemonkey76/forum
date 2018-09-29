@@ -33,4 +33,4 @@ Route::get('/profiles/{user}/notifications', 'UserNotificationsController@index'
 Route::get('/api/users', 'Api\UsersController@index');
 Route::post('/api/users/{user}/avatar', 'Api\UserAvatarController@store')->name('avatar');
 
-route::get('/register/confirm', 'Api\RegisterConfirmationController@index')->name('register.confirm');
+route::get('/register/confirm', 'Auth\RegisterConfirmationController@index')->name('register.confirm');

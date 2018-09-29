@@ -50,6 +50,7 @@ class User extends Authenticatable {
     public function confirm()
     {
         $this->confirmed = true;
+        $this->confirmation_token = null;
         $this->save();
     }
 
@@ -71,5 +72,9 @@ class User extends Authenticatable {
     public function getAvatarPathAttribute($avatar)
     {
         return asset('/storage/' . ($avatar ?: '../images/avatars/default.png'));
+    }
+    public static function generateConfirmationToken($email)
+    {
+        return str_limit(md5($email . str_random()), 25, '');
     }
 }
