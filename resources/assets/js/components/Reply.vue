@@ -1,6 +1,6 @@
 <template>
-    <div :id="'reply-'+id" class="card my-3">
-        <div class="card-header">
+    <div :id="'reply-'+id" class="card my-3" :class="isBest?'border-success':''">
+        <div class="card-header" :class="isBest?'panel-success':''">
             <div class="level">
                 <h5 class="flex">
                     <a :href="'/profile/'+data.owner.name" v-text="data.owner.name"></a>
@@ -25,9 +25,12 @@
             </div>
             <div v-else v-html="body"></div>
         </div>
-        <div class="card-footer level" v-if="canUpdate">
-            <button class="btn btn-sm mr-1" @click="editing = true">Edit</button>
-            <button class="btn btn-danger btn-sm" @click="destroy">Delete</button>
+        <div class="card-footer level">
+            <div v-if="canUpdate">
+                <button class="btn btn-sm mr-1" @click="editing = true">Edit</button>
+                <button class="btn btn-danger btn-sm" @click="destroy">Delete</button>
+            </div>
+            <button class="btn btn-default btn-sm ml-auto" @click="markBestReply" v-show="! isBest">Best Reply?</button>
         </div>
     </div>
 </template>
@@ -44,7 +47,8 @@
             return {
                 id: this.data.id,
                 editing: false,
-                body: this.data.body
+                body: this.data.body,
+                isBest: false
             }
         },
 
@@ -61,6 +65,10 @@
         },
 
         methods: {
+            markBestReply() {
+                this.isBest = true;
+                // axios.post('/replies/'+this.data.id+'/best');
+            },
             update() {
                 axios.patch('/replies/' + this.data.id, {
                     body: this.body

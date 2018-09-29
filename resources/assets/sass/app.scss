@@ -36,3 +36,15 @@ body {
 [v-cloak] {
   display:none;
 }
+
+.panel-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.panel-success > .card-footer {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.card-body {
+  background:white;
+}
