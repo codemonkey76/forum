@@ -15,7 +15,7 @@ class LockThreadsTest extends TestCase
         $this->withExceptionHandling()->signIn();
         $thread = create('App\Thread', ['user_id' => auth()->id()]);
         $this->post(route('locked-threads.store', $thread))->assertStatus(403);
-        $this->assertFalse(!! $thread->fresh()->locked);
+        $this->assertFalse($thread->fresh()->locked);
     }
 
     /** @test */
@@ -25,8 +25,18 @@ class LockThreadsTest extends TestCase
 
         $thread = create('App\Thread', ['user_id' => auth()->id()]);
         $this->post(route('locked-threads.store', $thread));
-        $this->assertTrue(!! $thread->fresh()->locked);
+        $this->assertTrue($thread->fresh()->locked, 'Failed asserting that the thread was locked.');
 
+    }
+
+    /** @test */
+    function administrators_can_unlock_threads()
+    {
+        $this->signIn(factory('App\User')->state('administrator')->create());
+
+        $thread = create('App\Thread', ['user_id' => auth()->id(), 'locked' => true]);
+        $this->delete(route('locked-threads.destroy', $thread));
+        $this->assertFalse($thread->fresh()->locked, 'Failed asserting that the thread was unlocked.');
     }
 
 
@@ -34,8 +44,7 @@ class LockThreadsTest extends TestCase
     function once_locked_a_thread_may_not_receive_new_replies()
     {
         $this->signIn();
-        $thread=create('App\Thread');
-        $thread->lock();
+        $thread=create('App\Thread', ['locked'=>true]);
 
         $this->post($thread->path().'/replies', [
            'body' => 'Foobar',
