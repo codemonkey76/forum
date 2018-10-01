@@ -61,7 +61,7 @@ class ThreadsController extends Controller
      */
     public function store(Request $request, Recaptcha $recaptcha)
     {
-        request()->validate([
+        $request->validate([
             'title'      => 'required|spamfree',
             'body'       => 'required|spamfree',
             'channel_id' => 'required|exists:channels,id',
@@ -75,7 +75,7 @@ class ThreadsController extends Controller
             'body'       => request('body'),
         ]);
 
-        if (request()->wantsJson()) {
+        if ($request->wantsJson()) {
             return response($thread, 201);
         }
 
@@ -104,21 +104,16 @@ class ThreadsController extends Controller
         return view('threads.show', compact('thread'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Thread $thread
-     * @return void
-     */
-    public function edit(Thread $thread)
-    {
-        //
-    }
-
-
     public function update($channel, Thread $thread)
     {
+        $this->authorize('update', $thread);
 
+        $thread->update(request()->validate([
+            'title'      => 'required|spamfree',
+            'body'       => 'required|spamfree',
+        ]));
+
+        return $thread;
     }
 
     /**
