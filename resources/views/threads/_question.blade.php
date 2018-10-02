@@ -10,13 +10,6 @@
     <div class="card-body">
         <div class="form-group">
             <wysiwyg v-model="form.body"></wysiwyg>
-            {{--<textarea--}}
-                    {{--name="body"--}}
-                    {{--id="body"--}}
-                    {{--cols="30"--}}
-                    {{--rows="10"--}}
-                    {{--class="form-control"--}}
-                    {{--v-model="form.body"></textarea>--}}
         </div>
     </div>
     <div class="card-footer">
