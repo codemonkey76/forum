@@ -27,10 +27,10 @@
         </div>
         <div class="card-footer level" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
             <div v-if="authorize('owns', reply)">
-                <button class="btn btn-sm mr-1" @click="editing = true">Edit</button>
+                <button class="btn btn-secondary btn-sm mr-1" @click="editing = true">Edit</button>
                 <button class="btn btn-danger btn-sm" @click="destroy">Delete</button>
             </div>
-            <button class="btn btn-default btn-sm ml-auto" @click="markBestReply"
+            <button class="btn btn-sm ml-auto" :class="isBest?'btn-primary':'btn-secondary'" @click="markBestReply"
                     v-show="authorize('owns', reply.thread)">Best Reply?
             </button>
         </div>

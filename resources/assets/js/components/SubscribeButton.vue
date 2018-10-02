@@ -4,11 +4,16 @@
 
 <script>
     export default {
-        props: ['active'],
+        props: ['dataActive'],
 
+        data() {
+            return {
+                active: this.dataActive
+            };
+        },
         computed: {
             classes() {
-                return ['btn', this.active ? 'btn-primary' : 'btn-default'];
+                return ['btn', this.active ? 'btn-primary' : 'btn-secondary'];
             }
         },
         methods: {

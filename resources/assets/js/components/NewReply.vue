@@ -13,7 +13,7 @@
             </div>
 
             <button type="submit"
-                    class="btn btn-default"
+                    class="btn btn-primary"
                     @click="addReply">Post
             </button>
         </div>
