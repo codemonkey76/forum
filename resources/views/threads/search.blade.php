@@ -16,15 +16,20 @@
                 query="{{ request('q') }}">
             <div class="row">
                 <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Search Results</div>
+                        <ul class="list-group list-group-flush">
                     <ais-results>
                         <template slot-scope="{ result }">
-                            <li>
+                            <li class="list-group-item">
                                 <a :href="result.path">
                                     <ais-highlight :result="result" attribute-name="title"></ais-highlight>
                                 </a>
                             </li>
                         </template>
                     </ais-results>
+                        </ul>
+                    </div>
 
                 </div>
                 <div class="col-md-4">
