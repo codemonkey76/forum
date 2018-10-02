@@ -35,11 +35,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="body">Body:</label>
-                                <textarea class="form-control {{ $errors->any()?$errors->has('body')?'is-invalid':'is-valid':'' }}"
-                                          id="body"
-                                          name="body"
-                                          rows="8"
-                                          required>{{ old('body') }}</textarea>
+                                <wysiwyg name="body"></wysiwyg>
+                                {{--<textarea class="form-control {{ $errors->any()?$errors->has('body')?'is-invalid':'is-valid':'' }}"--}}
+                                          {{--id="body"--}}
+                                          {{--name="body"--}}
+                                          {{--rows="8"--}}
+                                          {{--required>{{ old('body') }}</textarea>--}}
                                 <div class="invalid-feedback">{{ $errors->first('body') }}</div>
                                 <div class="valid-feedback">Body is good.</div>
                             </div>
